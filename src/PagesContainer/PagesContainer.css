@@ -1,0 +1,23 @@
+.page-button {
+    border: 2px solid transparent;
+    border-radius: 5px;
+    box-shadow: var(--thisopenspace-box-shadow);
+    cursor: pointer;
+    margin: 15px;
+    padding: 5px 15px;
+    transition: 0.15s border-color;
+}
+
+.page-button:hover {
+    border: 2px solid var(--thisopenspace-highlight-color);
+}
+
+.disabled {
+    color: var(--thisopenspace-subtext-color);
+    pointer-events: none;
+    opacity: .6;
+}
+
+.page-indicator {
+    font-weight: lighter;
+}

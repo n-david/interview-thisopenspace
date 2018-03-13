@@ -1,0 +1,61 @@
+.card {
+    border-radius: 10px;
+    box-shadow: var(--thisopenspace-box-shadow);
+    margin: 20px;
+    position: relative;
+    text-align: left;
+    transition: 0.3s transform;
+    width: 500px;
+}
+
+.card:hover {
+    transform: scale(1.03);
+}
+
+.listing-photo {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.listing-info-container {
+    margin: 20px;
+}
+
+.listing-header {
+    color: #222;
+    font-size: 1.2em;
+}
+
+.listing-subtext {
+    color: var(--thisopenspace-subtext-color);
+    font-size: 0.9em;
+    font-weight: lighter;
+    margin: 5px 0;
+}
+
+.separator {
+    margin: 5px;
+}
+
+.listing-price-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.listing-price {
+    box-shadow: var(--thisopenspace-box-shadow);
+    margin: 0 10px;
+    padding: 10px;
+}
+
+.popular-tag {
+    background-color: var(--thisopenspace-highlight-color);
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+}
