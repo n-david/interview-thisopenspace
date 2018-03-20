@@ -49,7 +49,7 @@ class App extends Component {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/lhl-test?page=${this.state.currentPage}`
+        `/api/lhl-test?page=${this.state.currentPage}`
       );
       const listings = await response.json();
       console.log(listings);
