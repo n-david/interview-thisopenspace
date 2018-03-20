@@ -5,7 +5,7 @@ import './App.css';
 //***** COMPONENTS *****
 import Loading from './Components/Loading';
 import Listing from './Listing/Listing';
-import PagesContainer from './PagesContainer/PagesContainer';
+import Pages from './Pages/Pages';
 
 class App extends Component {
   state = {
@@ -26,18 +26,20 @@ class App extends Component {
   }
 
   //***** HANDLERS *****
-  onClickNextPage = () => {
+  onClickChangePage = nextOrPrev => {
     this.setState(
-      prevState => ({ currentPage: prevState.currentPage + 1 }),
+      prevState => ({
+        currentPage:
+          nextOrPrev === 'NEXT'
+            ? prevState.currentPage + 1 // Add one to currentPage if NEXT clicked
+            : prevState.currentPage - 1, // Minus one to currentPage if PREV clicked
+      }),
       () => this.fetchListings()
     );
   };
 
-  onClickPrevPage = () => {
-    this.setState(
-      prevState => ({ currentPage: prevState.currentPage - 1 }),
-      () => this.fetchListings()
-    );
+  onClickJumpToPage = pageNumber => {
+    this.setState({ currentPage: pageNumber }, () => this.fetchListings());
   };
 
   //***** HELPERS *****
@@ -82,12 +84,12 @@ class App extends Component {
         </div>
         {!loading && (
           <footer className="App-footer">
-            <PagesContainer
+            <Pages
               pageSize={pageSize}
               total={total}
               currentPage={currentPage}
-              onClickNextPage={this.onClickNextPage}
-              onClickPrevPage={this.onClickPrevPage}
+              onClickChangePage={this.onClickChangePage}
+              onClickJumpToPage={this.onClickJumpToPage}
             />
           </footer>
         )}

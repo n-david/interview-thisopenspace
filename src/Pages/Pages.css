@@ -12,6 +12,10 @@
     border: 2px solid var(--thisopenspace-highlight-color);
 }
 
+.page-button.no-margin {
+    margin: 0;
+}
+
 .disabled {
     color: var(--thisopenspace-subtext-color);
     pointer-events: none;

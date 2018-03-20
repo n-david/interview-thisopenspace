@@ -6,7 +6,7 @@ const Loading = () => (
     <img
       style={{
         opacity: '.8',
-        margin: '200px',
+        margin: '15vw',
         width: '90px',
       }}
       src={dots}
