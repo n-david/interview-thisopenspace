@@ -4,6 +4,7 @@ import './App.css';
 
 //***** COMPONENTS *****
 import Loading from './Components/Loading';
+// import SortBy from './SortBy/SortBy';
 import Listing from './Listing/Listing';
 import Pages from './Pages/Pages';
 
@@ -64,6 +65,28 @@ class App extends Component {
     }
   };
 
+  // fetchAllListings = async () => {
+  //   try {
+  //     const pageOne = await fetch('http://localhost:3000/lhl-test?page=1');
+  //     const pageOneJSON = await pageOne.json();
+  //     const pageTwo = await fetch('http://localhost:3000/lhl-test?page=2');
+  //     const pageTwoJSON = await pageTwo.json();
+  //     const pageThree = await fetch('http://localhost:3000/lhl-test?page=3');
+  //     const pageThreeJSON = await pageThree.json();
+  //     const pageFour = await fetch('http://localhost:3000/lhl-test?page=4');
+  //     const pageFourJSON = await pageFour.json();
+  //
+  //     console.log([
+  //       ...pageOneJSON.data,
+  //       ...pageTwoJSON.data,
+  //       ...pageThreeJSON.data,
+  //       ...pageFourJSON.data,
+  //     ]);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
   render() {
     const { listings, pageSize, total, loading, currentPage } = this.state;
 
@@ -73,6 +96,9 @@ class App extends Component {
           <img src={thisopenspace} className="App-logo" alt="logo" />
           <h1 className="App-title">thisopenspace</h1>
         </header>
+        {/*<div className="sort-by-container">*/}
+          {/*Show me <SortBy /> spaces*/}
+        {/*</div>*/}
         <div className="listings-container">
           {loading ? (
             <Loading />

@@ -8,7 +8,7 @@
 
 .App-header {
     align-items: center;
-    background-color: #222;
+    background-color: var(--bold-text-color);
     color: white;
     display: flex;
     height: 150px;
@@ -20,6 +20,12 @@
     font-size: 1.5em;
     letter-spacing: 2px;
     margin: 15px;
+}
+
+.sort-by-container {
+    font-size: 1.2em;
+    font-weight: lighter;
+    margin: 50px;
 }
 
 .listings-container {

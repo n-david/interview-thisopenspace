@@ -4,6 +4,8 @@ body {
     font-family: sans-serif;
 
     /*Variables*/
+    --bold-text-color: #222;
+    --bold-font-weight: 600;
     --thisopenspace-subtext-color: #5d5d5d;
     --thisopenspace-highlight-color: #44c7f3;
     --thisopenspace-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
