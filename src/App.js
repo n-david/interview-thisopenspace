@@ -49,7 +49,10 @@ class App extends Component {
 
     try {
       const response = await fetch(
-        `/api/lhl-test?page=${this.state.currentPage}`
+        `/lhl-test?page=${this.state.currentPage}`,
+        {
+          accept: 'application/json',
+        }
       );
       const listings = await response.json();
       console.log(listings);
@@ -97,7 +100,7 @@ class App extends Component {
           <h1 className="App-title">thisopenspace</h1>
         </header>
         {/*<div className="sort-by-container">*/}
-          {/*Show me <SortBy /> spaces*/}
+        {/*Show me <SortBy /> spaces*/}
         {/*</div>*/}
         <div className="listings-container">
           {loading ? (
