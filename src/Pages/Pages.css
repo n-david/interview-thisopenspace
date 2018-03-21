@@ -12,14 +12,20 @@
     border: 2px solid var(--thisopenspace-highlight-color);
 }
 
-.page-button.no-margin {
+.page-button.first-last {
     margin: 0;
+}
+
+@media (max-width: 450px) {
+    .page-button.first-last {
+        display: none;
+    }
 }
 
 .disabled {
     color: var(--thisopenspace-subtext-color);
-    pointer-events: none;
     opacity: .6;
+    pointer-events: none;
 }
 
 .page-indicator {

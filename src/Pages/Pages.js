@@ -34,7 +34,7 @@ const Pages = ({
   return (
     <div>
       <span
-        className={`no-margin ${getPrevButtonClassnames()}`}
+        className={`first-last ${getPrevButtonClassnames()}`}
         onClick={() => onClickJumpToPage(1)}
       >
         First
@@ -59,7 +59,7 @@ const Pages = ({
         &gt;
       </span>
       <span
-        className={`no-margin ${getNextButtonClassnames()}`}
+        className={`first-last ${getNextButtonClassnames()}`}
         onClick={() => onClickJumpToPage(lastPage)}
       >
         Last
