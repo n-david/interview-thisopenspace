@@ -4,17 +4,14 @@ import './App.css';
 
 //***** COMPONENTS *****
 import Loading from './Components/Loading';
-// import SortBy from './SortBy/SortBy';
 import Listing from './Listing/Listing';
-import Pages from './Pages/Pages';
 
 class App extends Component {
   state = {
-    listings: null,
-    pageSize: null,
-    total: null,
+    listings: [],
     loading: true,
     currentPage: 1,
+    lastPageReached: false,
   };
 
   componentWillMount() {
@@ -23,76 +20,72 @@ class App extends Component {
 
   componentDidMount() {
     this.fetchListings();
+    window.addEventListener('scroll', this.onScroll);
   }
 
-  componentDidUpdate() {
-    //Scroll to top of page on component update
-    window.scrollTo(0, 0);
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll);
   }
 
   //***** HANDLERS *****
-  onClickChangePage = nextOrPrev => {
-    this.setState(
-      prevState => ({
-        currentPage:
-          nextOrPrev === 'NEXT'
-            ? prevState.currentPage + 1 // Add one to currentPage if NEXT clicked
-            : prevState.currentPage - 1, // Minus one to currentPage if PREV clicked
-      }),
-      () => this.fetchListings()
+  onScroll = () => {
+    const { loading, lastPageReached } = this.state;
+
+    const body = document.body;
+    const doc = document.documentElement;
+    const windowHeight =
+      'innerHeight' in window
+        ? window.innerHeight
+        : doc.offsetHeight;
+    const docHeight = Math.max(
+      body.scrollHeight,
+      body.offsetHeight,
+      doc.clientHeight,
+      doc.scrollHeight,
+      doc.offsetHeight
     );
+    const windowBottom = windowHeight + window.pageYOffset;
+
+    if (windowBottom >= docHeight) {
+      console.log('bottom reached');
+
+      if (!lastPageReached && !loading) {
+        this.setState(
+          prevState => ({ currentPage: prevState.currentPage + 1 }),
+          () => this.fetchListings()
+        );
+      }
+    }
   };
 
-  onClickJumpToPage = pageNumber => {
-    this.setState({ currentPage: pageNumber }, () => this.fetchListings());
+  onClickScrollToTop = () => {
+    window.scrollTo(0, 0);
   };
 
   //***** HELPERS *****
   fetchListings = async () => {
+    const { currentPage } = this.state;
     this.setState({ loading: true });
 
     try {
       const response = await fetch(
-        `${this.prodENV ? 'api' : ''}/lhl-test?page=${this.state.currentPage}`
+        `${this.prodENV ? 'api' : ''}/lhl-test?page=${currentPage}`
       );
       const listings = await response.json();
       console.log(listings);
 
-      this.setState({
-        listings: listings.data,
-        pageSize: listings.page_size,
-        total: listings.total,
+      this.setState(prevState => ({
+        listings: [...prevState.listings, ...listings.data],
         loading: false,
-      });
+        lastPageReached: currentPage * 10 >= listings.total,
+      }));
     } catch (err) {
       console.log(err);
     }
   };
 
-  // fetchAllListings = async () => {
-  //   try {
-  //     const pageOne = await fetch('http://localhost:3000/lhl-test?page=1');
-  //     const pageOneJSON = await pageOne.json();
-  //     const pageTwo = await fetch('http://localhost:3000/lhl-test?page=2');
-  //     const pageTwoJSON = await pageTwo.json();
-  //     const pageThree = await fetch('http://localhost:3000/lhl-test?page=3');
-  //     const pageThreeJSON = await pageThree.json();
-  //     const pageFour = await fetch('http://localhost:3000/lhl-test?page=4');
-  //     const pageFourJSON = await pageFour.json();
-  //
-  //     console.log([
-  //       ...pageOneJSON.data,
-  //       ...pageTwoJSON.data,
-  //       ...pageThreeJSON.data,
-  //       ...pageFourJSON.data,
-  //     ]);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
   render() {
-    const { listings, pageSize, total, loading, currentPage } = this.state;
+    const { listings, loading, lastPageReached } = this.state;
 
     return (
       <div className="App">
@@ -100,29 +93,20 @@ class App extends Component {
           <img src={thisopenspace} className="App-logo" alt="logo" />
           <h1 className="App-title">thisopenspace</h1>
         </header>
-        {/*<div className="sort-by-container">*/}
-        {/*Show me <SortBy /> spaces*/}
-        {/*</div>*/}
         <div className="listings-container">
-          {loading ? (
-            <Loading />
-          ) : (
-            listings.map(listing => (
-              <Listing key={listing.id} listing={listing} />
-            ))
-          )}
+          {listings.map(listing => (
+            <Listing key={listing.id} listing={listing} />
+          ))}
+          {loading && <Loading />}
         </div>
-        {!loading && (
-          <footer className="App-footer">
-            <Pages
-              pageSize={pageSize}
-              total={total}
-              currentPage={currentPage}
-              onClickChangePage={this.onClickChangePage}
-              onClickJumpToPage={this.onClickJumpToPage}
-            />
-          </footer>
-        )}
+        {!loading &&
+          lastPageReached && (
+            <footer className="App-footer">
+              <div className="back-to-top" onClick={this.onClickScrollToTop}>
+                BACK TO TOP
+              </div>
+            </footer>
+          )}
       </div>
     );
   }

@@ -38,3 +38,12 @@
 .App-footer {
     margin-bottom: 50px;
 }
+
+.back-to-top {
+    cursor: pointer;
+    display: inline-block;
+}
+
+.back-to-top:hover {
+    text-decoration: underline;
+}
