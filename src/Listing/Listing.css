@@ -8,17 +8,8 @@
     width: 500px;
 }
 
-.card:hover {
-    transform: scale(1.03);
-}
-
-@media handheld {
-    .card:hover {
-        transform: none;
-        -moz-transform: none;
-        -ms-transform: none;
-        -webkit-transform: none;
-    }
+@media (hover: hover) {
+    .card:hover { transform: scale(1.03); }
 }
 
 .listing-photo {
