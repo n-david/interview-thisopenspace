@@ -17,6 +17,10 @@ class App extends Component {
     currentPage: 1,
   };
 
+  componentWillMount() {
+    this.prodENV = process.env.NODE_ENV === 'production';
+  }
+
   componentDidMount() {
     this.fetchListings();
   }
@@ -49,12 +53,7 @@ class App extends Component {
 
     try {
       const response = await fetch(
-        `${process.env.NODE_ENV !== 'development' && 'api'}/lhl-test?page=${
-          this.state.currentPage
-        }`,
-        {
-          accept: 'application/json',
-        }
+        `${this.prodENV ? 'api' : ''}/lhl-test?page=${this.state.currentPage}`
       );
       const listings = await response.json();
       console.log(listings);
