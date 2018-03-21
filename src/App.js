@@ -49,7 +49,9 @@ class App extends Component {
 
     try {
       const response = await fetch(
-        `/lhl-test?page=${this.state.currentPage}`,
+        `${process.env.NODE_ENV !== 'development' && 'api'}/lhl-test?page=${
+          this.state.currentPage
+        }`,
         {
           accept: 'application/json',
         }
